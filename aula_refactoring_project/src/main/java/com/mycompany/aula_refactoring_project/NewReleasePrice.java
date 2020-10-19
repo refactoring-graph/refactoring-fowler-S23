@@ -10,7 +10,13 @@ package com.mycompany.aula_refactoring_project;
  * @author marcos
  */
 public class NewReleasePrice extends Price {
-   public int getPriceCode() {
-       return Movie.NEW_RELEASE;
-   }
+
+    public int getPriceCode() {
+        return Movie.NEW_RELEASE;
+    }
+
+    public double getCharge(int daysRented) {
+        return daysRented * 3;
+    }
+
 }
