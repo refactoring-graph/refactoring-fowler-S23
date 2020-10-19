@@ -10,23 +10,38 @@ import java.util.Enumeration;
  * @author marcos
  */
 public class TextStatement extends Statement {
-
+    
+    private String getHeader(Customer aCustomer) {
+        String header = "Rental Record for " + aCustomer.getName()
+                + "\n";
+        return header;
+    }
+    
+    private String getFigure(Rental r) {
+        String figure = "\t" + r.getMovie().getTitle() + "\t"
+                    + String.valueOf(r.getCharge()) + "\n";
+        return figure;
+    }
+    
+    private String getFooter(Customer aCustomer) {
+        String footer = "Amount owed is "
+                + String.valueOf(aCustomer.getTotalCharge()) + "\n";
+        footer += "You earned "
+                + String.valueOf(aCustomer.getTotalFrequentRenterPoints())
+                + " frequent renter points";
+        return footer;
+    }  
+    
     public String value(Customer aCustomer) {
         Enumeration rentals = aCustomer.getRentals();
-        String result = "Rental Record for " + aCustomer.getName()
-                + "\n";
+        String result = getHeader(aCustomer);
         while (rentals.hasMoreElements()) {
             Rental each = (Rental) rentals.nextElement();
             //show figures for this rental
-            result += "\t" + each.getMovie().getTitle() + "\t"
-                    + String.valueOf(each.getCharge()) + "\n";
+            result += getFigure(each);
         }
         //add footer lines
-        result += "Amount owed is "
-                + String.valueOf(aCustomer.getTotalCharge()) + "\n";
-        result += "You earned "
-                + String.valueOf(aCustomer.getTotalFrequentRenterPoints())
-                + " frequent renter points";
+        result += getFooter(aCustomer);
         return result;
     }
 }
